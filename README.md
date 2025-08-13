@@ -84,11 +84,17 @@ pip install -r requirements.txt
 python glasses_sim.py --video "http://<手机IP>:8080/video"
 ```
 
+* `<手机IP>` 可在手机端推流应用界面查看
+* 程序启动后，可用 **↑/↓** 动态调节延迟（单位：100ms），按 `q` 退出
+
 ### 4. 启动翻译耳机端
 
 ```bash
 python earbud_sim.py --delay_ms 1200 --text "你好，这是一次同步演示。"
 ```
+
+* `--delay_ms` 设定延迟时间（毫秒）
+* `--text` 为播放的翻译文本
 
 ---
 
