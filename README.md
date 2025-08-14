@@ -55,7 +55,7 @@ This project is a **Delay Glasses & Real-Time Translation Headset Synchronizatio
 
 ```mermaid
 flowchart LR
-  A[🎤 Mic / CABLE-A Input] --> B[🔎 VAD and Segmentation]
+  A[🎤 Mic CABLE-A Input] --> B[🔎 VAD and Segmentation]
   B --> C[📝 ASR: Whisper small.en]
   C --> D[📦 Buffer and Sentence Assembler]
   D --> E[🌐 MT: EN -> ZH]
