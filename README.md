@@ -20,16 +20,15 @@ This project is a **Delay Glasses & Real-Time Translation Headset Synchronizatio
 
 ---
 
-## ✨ 系统亮点 | Key Features
+## 🔑 核心功能 | Key Features
 
-* 🎤 **实时语音采集与分割**（VAD + Sentence Buffer）
-* 📝 **ASR：Whisper small.en / medium.en**
-* 🌐 **机器翻译 EN→ZH**（可扩展至多语言）
-* 🎶 **韵律映射**（语速/停顿控制，保持中英文对齐感）
-* 🔊 **TTS 合成**（Edge-TTS / Azure / 本地引擎）
-* 🎧 **音频输出**（同步到翻译耳机）
-* 🕶️ **字幕输出**（延时显示在智能眼镜）
-* 🔗 **多设备同步**（保证耳机与眼镜延迟一致）
+* **🎤 语音输入与分段 (VAD)**：智能分割语音，减少误触发。
+* **📝 高精度语音识别 (ASR)**：基于 *Whisper* 模型，低延迟识别英文语音。
+* **🌐 实时翻译 (MT)**：英 → 中 实时翻译，支持多语言扩展。
+* **🎶 韵律控制 (Prosody Mapper)**：保留停顿、语速等自然特征，提升可听度。
+* **🔊 高质量合成 (TTS)**：支持 *Edge-TTS / Azure TTS*，自然流畅。
+* **🕶️ 延时字幕 (Delay Glasses)**：字幕显示与音频播放同步。
+* **⚡ 多模态同步**：实现 *字幕延时* 与 *音频翻译* 严格对齐。
 
 ---
 
@@ -65,6 +64,35 @@ flowchart LR
   C --> I[🕶️ Subtitles Out -> Delay Glasses]
   H -. Sync .- I
 ```
+
+---
+
+## 📂 项目结构 | Project Structure
+
+```
+.
+├── docs/                 # 文档与设计说明
+├── src/                  # 核心代码
+│   ├── asr/              # Whisper-based ASR 模块
+│   ├── mt/               # 翻译模块
+│   ├── tts/              # TTS 合成模块
+│   ├── sync/             # 延时与同步模块
+│   └── ui/               # 可视化字幕输出
+├── tests/                # 单元与集成测试
+├── assets/               # Logo / 图标 / 架构图
+├── requirements.txt      # 依赖
+└── README.md             # 工程说明
+```
+
+---
+
+## ⚙️ 技术栈 | Tech Stack
+
+* **ASR**：OpenAI Whisper (small.en)
+* **MT**：自研轻量级 EN→ZH 翻译器（可切换至 DeepL API / Azure Translator）
+* **TTS**：Edge-TTS / Azure Speech Service
+* **同步机制**：自定义 Buffer + 时间戳对齐
+* **硬件支持**：延时眼镜（字幕投影） + 蓝牙耳机
 
 ---
 
@@ -113,5 +141,11 @@ python prosody_tts_vm.py --model small.en --voice zh-CN-YunxiNeural
 
 ---
 
-💡 *With Delay Glasses + Translation Headset, we make real-time interpretation synchronized and natural.*
+## 🤝 贡献 | Contribution
 
+欢迎提交 PR、Issue 或优化建议。
+请遵循 [CONTRIBUTING.md](CONTRIBUTING.md) 中的开发规范。
+
+---
+
+💡 *With Delay Glasses + Translation Headset, we make real-time interpretation synchronized and natural.*
