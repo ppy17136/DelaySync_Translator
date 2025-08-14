@@ -1,143 +1,117 @@
-# 🎧 Prosody-Aware Real-Time Speech Translation
+# 🎧🕶️ 延时眼镜与实时翻译耳机同步系统
 
-*中英文实时同声传译系统 (带韵律映射)*
+*Delay Glasses & Real-Time Translation Headset Synchronization System*
 
 <p align="center">
-  <img src="assets/logo.png" alt="Project Logo" width="200"/>
+  <img src="docs/logo.png" alt="Project Logo" width="200"/>
 </p>
 
 <p align="center">
-  <b>⚡ Low-latency | 🎙 Real-time Speech Recognition | 🌍 English→Chinese Translation | 🔊 Natural TTS with Prosody</b>
-</p>
-
----
-
-## 📸 Screenshots & Demo
-
-<p align="center">
-  <img src="assets/voicemeeter.png" alt="System Screenshot" width="600"/>
-</p>
-
-<p align="center">
-  <img src="assets/demo.gif" alt="Live Demo" width="600"/>
+  <b>⏳ 同声传译不再“抢跑”，字幕与语音延时精准同步</b>  
 </p>
 
 ---
 
-## 🚀 Introduction | 项目简介
+## 📖 项目简介 | Project Introduction
 
-**Prosody-Aware Real-Time Speech Translation** is an **end-to-end live interpreter system** that combines:
+本项目是一个 **延时眼镜与实时翻译耳机同步系统**，实现了 **语音识别（ASR）→ 机器翻译（MT）→ 语音合成（TTS）** 的完整闭环，并通过 **延时控制与韵律映射**，让字幕与语音在不同设备（眼镜、耳机）中精准同步。
 
-* 🎤 **ASR (Speech Recognition)** → Captures English speech in real time
-* 🌐 **MT (Machine Translation)** → Translates into fluent Chinese text
-* 🔊 **TTS (Speech Synthesis)** → Generates natural Mandarin speech with **prosody mapping** (语速 & 停顿保持)
-
-该系统通过 **虚拟音频线 (Voicemeeter)** 与任意会议软件无缝集成，可广泛应用于：
-
-* 国际会议同声传译
-* 在线课程/远程教育
-* 跨国企业会议
-* 新闻/学术直播
+This project is a **Delay Glasses & Real-Time Translation Headset Synchronization System**, which achieves a full pipeline of **ASR → MT → TTS** and leverages **delay control and prosody mapping** to synchronize subtitles (on glasses) and translated audio (on headset).
 
 ---
 
-## 🏗 Architecture | 系统架构
+## ✨ 系统亮点 | Key Features
+
+* 🎤 **实时语音采集与分割**（VAD + Sentence Buffer）
+* 📝 **ASR：Whisper small.en / medium.en**
+* 🌐 **机器翻译 EN→ZH**（可扩展至多语言）
+* 🎶 **韵律映射**（语速/停顿控制，保持中英文对齐感）
+* 🔊 **TTS 合成**（Edge-TTS / Azure / 本地引擎）
+* 🎧 **音频输出**（同步到翻译耳机）
+* 🕶️ **字幕输出**（延时显示在智能眼镜）
+* 🔗 **多设备同步**（保证耳机与眼镜延迟一致）
+
+---
+
+## 🖼️ 系统演示 | Screenshots & Demo
+
+### 界面截图 | Screenshot
+
+<p align="center">
+  <img src="docs/screenshot.png" alt="System Screenshot" width="700"/>
+</p>
+
+### 动态演示 | Demo GIF
+
+<p align="center">
+  <img src="docs/demo.gif" alt="System Demo" width="700"/>
+</p>
+
+*左：眼镜字幕延时显示；右：耳机同步语音翻译*
+
+---
+
+## 🏗️ 系统架构 | Architecture
 
 ```mermaid
 flowchart LR
-  A[🎤 Input: CABLE-A Output] --> B[🔎 VAD & Segmentation];
+  A[🎤 Mic / CABLE-A Input] --> B[🔎 VAD & Segmentation];
   B --> C[📝 ASR: Whisper small.en];
   C --> D[📦 Buffer & Sentence Assembler];
   D --> E[🌐 MT: EN → ZH];
-  E --> F[🎶 Prosody Mapper rate_and_pause];
-  F --> G[🔊 TTS Engine Edge-TTS];
-  G --> H[🎧 Output: Voicemeeter Input to EV or Meeting];
+  E --> F[🎶 Prosody Mapper (Rate & Pause)];
+  F --> G[🔊 TTS Engine (Edge-TTS / Azure)];
+  G --> H[🎧 Audio Out → Headset];
+  C --> I[🕶️ Subtitles Out → Delay Glasses];
+  H -. Sync .- I
 ```
 
 ---
 
-## ⚙️ Installation | 安装
+## ⚙️ 安装与运行 | Installation & Usage
 
 ```bash
-git clone https://github.com/yourname/prosody-tts-vm.git
-cd prosody-tts-vm
+# 克隆项目
+git clone https://github.com/yourname/DelaySync_Translator.git
+cd DelaySync_Translator
+
+# 安装依赖
 pip install -r requirements.txt
+
+# 运行示例
+python prosody_tts_vm.py --model small.en --voice zh-CN-YunxiNeural
 ```
 
-Dependencies:
+运行后：
 
-* `torch` + CUDA (optional, for faster ASR)
-* `whisper`
-* `sounddevice`
-* `pyaudio`
-* `requests` (Azure TTS)
+* 🎧 耳机会播放翻译语音（延迟匹配字幕）
+* 🕶️ 智能眼镜显示延时字幕
 
 ---
 
-## 🎯 Usage | 使用方法
+## 🚀 应用场景 | Application Scenarios
 
-```bash
-python prosody_tts_vm.py \
-  --mode live \
-  --device-name "CABLE-A Output" \
-  --tts_device_name "Voicemeeter Input (VB-Audio Voicemeeter VAIO)" \
-  --whisper small.en \
-  --lead_ms 1200 \
-  --voice zh-CN-YunxiNeural \
-  --tts_rate_pct -15 \
-  --keep_wav --wav_dir ./wav_logs
-```
-
-| 参数                  | 说明                    |
-| ------------------- | --------------------- |
-| `--device-name`     | 捕获系统音频输入设备            |
-| `--tts_device_name` | 输出翻译语音的设备             |
-| `--whisper`         | 选择 ASR 模型             |
-| `--lead_ms`         | 翻译缓冲时间，控制延迟与完整度       |
-| `--tts_rate_pct`    | 调节语速，如 -15 表示比正常慢 15% |
-| `--keep_wav`        | 是否保存合成语音日志            |
-| `--wav_dir`         | 保存目录                  |
+* 🌐 **跨国会议**：保证字幕与语音同步，不再“抢跑”
+* 🧑‍🏫 **国际课堂教学**：学生可通过眼镜+耳机同步获取翻译内容
+* 🧳 **出国旅行**：实时翻译 + 字幕显示，提升交流体验
+* 🦻 **听障人士辅助**：字幕延时对齐，提升可读性
 
 ---
 
-## 📊 Performance | 性能指标
+## 📑 专利支撑 | Patent Support
 
-| Model       | Avg Latency | Translation Completeness | GPU      |
-| ----------- | ----------- | ------------------------ | -------- |
-| `tiny.en`   | \~0.8s      | Medium                   | Optional |
-| `small.en`  | \~1.2s      | High                     | ✅        |
-| `medium.en` | \~2.5s      | Very High                | ✅        |
+本系统对应于 **延时眼镜与实时翻译耳机同步系统** 专利。
 
 ---
 
-## 🌟 Features | 工程亮点
+## 🤝 致谢 | Acknowledgments
 
-* **Real-time + Robust** → Avoids missing sentences with **buffer + VAD**
-* **Prosody Mapping** → Keeps rhythm & speech style
-* **Scalable** → Replaceable ASR / MT / TTS backends
-* **Debuggable** → Logs original audio, ASR text, translations, and TTS output
-
----
-
-## 📂 Project Structure | 项目结构
-
-```
-prosody_tts_vm/
-├── prosody_tts_vm.py     # Main program
-├── requirements.txt      # Dependencies
-├── /wav_logs             # Audio logs
-├── /assets               # Logo, screenshots, GIFs
-└── README.md             # Documentation
-```
+* [Whisper](https://github.com/openai/whisper) for ASR
+* [Edge-TTS](https://github.com/rany2/edge-tts) for TTS
+* [Voicemeeter](https://vb-audio.com/Voicemeeter/) for audio routing
+* Contributors & collaborators of this project
 
 ---
 
-## 🔮 Roadmap | 后续扩展
-
-* Multi-language support (中 ↔ 英, 日 ↔ 中, etc.)
-* Real-time meeting summarization with LLM
-* Adaptive prosody control for speaker style simulation
-* Enhanced fault-tolerance & auto-reconnection
-
-
+💡 *With Delay Glasses + Translation Headset, we make real-time interpretation synchronized and natural.*
 
