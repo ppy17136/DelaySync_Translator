@@ -59,8 +59,8 @@ flowchart LR
   B --> C[📝 ASR: Whisper small.en]
   C --> D[📦 Buffer and Sentence Assembler]
   D --> E[🌐 MT: EN -> ZH]
-  E --> F[🎶 Prosody Mapper (Rate + Pause)]
-  F --> G[🔊 TTS Engine (Edge-TTS or Azure)]
+  E --> F[🎶 Prosody Mapper_Rate + Pause]
+  F --> G[🔊 TTS Engine_Edge-TTS or Azure]
   G --> H[🎧 Audio Out -> Headset]
   C --> I[🕶️ Subtitles Out -> Delay Glasses]
   H -. Sync .- I
