@@ -15,7 +15,7 @@
 ## 📸 Screenshots & Demo
 
 <p align="center">
-  <img src="assets/demo.png" alt="System Screenshot" width="600"/>
+  <img src="assets/voicemeeter.png" alt="System Screenshot" width="600"/>
 </p>
 
 <p align="center">
