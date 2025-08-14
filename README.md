@@ -45,6 +45,7 @@
 
 ```mermaid
 flowchart LR
+
   A[Input: CABLE-A Output] --> B[VAD and Segmentation];
   B --> C[ASR: Whisper small.en];
   C --> D[Buffer and Sentence Assembler];
