@@ -52,19 +52,6 @@ flowchart LR
   E --> P[Prosody Mapper rate_and_pause];
   P --> T[TTS Engine Edge-TTS];
   T --> H[Output: Voicemeeter Input to EV or Meeting];
-
-```
-
-```mermaid
-flowchart LR
-  A[Mic / CABLE-A] --> B[VAD + Seg];
-  B --> C[ASR: Whisper small.en];
-  C --> D[Sentence Buffer];
-  D --> E[MT EN_to_ZH];
-  E --> P[Prosody Mapper rate_pause];
-  P --> T[TTS (Edge-TTS)];
-  T --> H[Voicemeeter In -> Recorder];
-
 ```
 
 ---
