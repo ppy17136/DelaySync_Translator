@@ -60,9 +60,9 @@ flowchart LR
   B --> C[📝 ASR: Whisper small.en];
   C --> D[📦 Buffer & Sentence Assembler];
   D --> E[🌐 MT: EN → ZH];
-  E --> F[🎶 Prosody Mapper (语速/停顿调整)];
-  F --> G[🔊 TTS Engine (Azure / Local)];
-  G --> H[🎧 Output: Voicemeeter Input → Meeting Software];
+  E --> F[🎶 Prosody Mapper rate_and_pause];
+  F --> G[🔊 TTS Engine Edge-TTS];
+  G --> H[🎧 Output: Voicemeeter Input to EV or Meeting];
 
 ```
 ---
