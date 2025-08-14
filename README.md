@@ -45,13 +45,24 @@
 
 ```mermaid
 flowchart LR
-  A[🎤 Input: CABLE-A Output] --> B[🔎 VAD & Segmentation]
-  B --> C[📝 ASR: Whisper small.en]
-  C --> D[📦 Buffer & Sentence Assembler]
-  D --> E[🌐 MT: EN → ZH]
-  E --> F[🎶 Prosody Mapper (语速/停顿调整)]
-  F --> G[🔊 TTS Engine (Azure / Local)]
-  G --> H[🎧 Output: Voicemeeter Input → Meeting Software]
+  A[Input: CABLE-A Output] --> B[VAD & Segmentation]
+  B --> C[ASR: Whisper small.en]
+  C --> D[Buffer & Sentence Assembler]
+  D --> E[MT: EN -> ZH]
+  E --> F[Prosody Mapper (rate/pause)]
+  F --> G[TTS Engine (Edge-TTS)]
+  G --> H[Output: Voicemeeter Input -> EV/Meeting]
+```
+
+```mermaid
+flowchart LR
+  A[Mic/CABLE-A] --> B[VAD + Seg]
+  B --> C[ASR: Whisper small.en]
+  C --> D[Sentence Buffer]
+  D --> E[MT EN->ZH]
+  E --> F[Prosody map (rate/pause)]
+  F --> G[TTS (Edge-TTS)]
+  G --> H[Voicemeeter In -> Recorder]
 ```
 
 ---
