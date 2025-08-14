@@ -1,159 +1,143 @@
-# 延时眼镜与实时翻译耳机同步系统
+# 🎧 Prosody-Aware Real-Time Speech Translation
 
-*DelaySync_Translator_Demo: Engineering Demonstration*
+*中英文实时同声传译系统 (带韵律映射)*
 
----
+<p align="center">
+  <img src="assets/logo.png" alt="Project Logo" width="200"/>
+</p>
 
-## 📖 项目简介
-
-本项目为 **《延时眼镜与实时翻译耳机同步系统》** 的可运行工程演示程序，旨在展示专利技术的 **可实施性** 与 **工程实现路径**。
-系统模拟了 **翻译耳机** 与 **延时眼镜** 之间的延迟匹配与嘴型画面同步过程，通过软件实现原型验证，为未来硬件实现（AR眼镜+智能耳机）奠定基础。
-
----
-
-## 🏗 工程特点
-
-- **完整双端架构**：包含“耳机端”与“眼镜端”两大模块，支持独立运行与网络通信
-- **实时延迟匹配**：耳机端计算翻译延迟并发送至眼镜端，眼镜端实现视频缓冲与同步播放
-- **多源视频支持**：支持 HTTP/MJPEG 与 RTSP/H.264 视频流
-- **动态延迟调节**：运行中可通过 `↑/↓` 实时调整延迟（步进 100ms）
-- **可移植性强**：可部署至树莓派、NVIDIA Jetson、AR眼镜等嵌入式平台
-- **低延迟视频处理**：基于 OpenCV 实现高效帧缓存与延时播放
+<p align="center">
+  <b>⚡ Low-latency | 🎙 Real-time Speech Recognition | 🌍 English→Chinese Translation | 🔊 Natural TTS with Prosody</b>
+</p>
 
 ---
 
-## 🔍 系统架构
+## 📸 Screenshots & Demo
 
-```text
-+----------------+       UDP/JSON       +------------------+
-|  翻译耳机模拟   | <------------------->|   延时眼镜模拟    |
-| Earbud Sim     |                      | Glasses Sim      |
-|                |                      |                  |
-| - 翻译延迟计算  |                      | - 视频缓冲管理    |
-| - TTS播放      |                      | - 延迟显示控制    |
-| - 延迟参数发送  |                      | - 环境自适应调节  |
-+----------------+                      +------------------+
-       ↑                                          ↑
-       |                                          |
-   麦克风采音                                  手机摄像头推流
+<p align="center">
+  <img src="assets/demo.png" alt="System Screenshot" width="600"/>
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="Live Demo" width="600"/>
+</p>
+
+---
+
+## 🚀 Introduction | 项目简介
+
+**Prosody-Aware Real-Time Speech Translation** is an **end-to-end live interpreter system** that combines:
+
+* 🎤 **ASR (Speech Recognition)** → Captures English speech in real time
+* 🌐 **MT (Machine Translation)** → Translates into fluent Chinese text
+* 🔊 **TTS (Speech Synthesis)** → Generates natural Mandarin speech with **prosody mapping** (语速 & 停顿保持)
+
+该系统通过 **虚拟音频线 (Voicemeeter)** 与任意会议软件无缝集成，可广泛应用于：
+
+* 国际会议同声传译
+* 在线课程/远程教育
+* 跨国企业会议
+* 新闻/学术直播
+
+---
+
+## 🏗 Architecture | 系统架构
+
+```mermaid
+flowchart LR
+  A[🎤 Input: CABLE-A Output] --> B[🔎 VAD & Segmentation]
+  B --> C[📝 ASR: Whisper small.en]
+  C --> D[📦 Buffer & Sentence Assembler]
+  D --> E[🌐 MT: EN → ZH]
+  E --> F[🎶 Prosody Mapper (语速/停顿调整)]
+  F --> G[🔊 TTS Engine (Azure / Local)]
+  G --> H[🎧 Output: Voicemeeter Input → Meeting Software]
 ```
----
-
-## 🛠 技术细节
-
-* **视频延迟控制**：基于帧缓存技术（Frame Buffer）实现动态延迟
-* **音频延迟控制**：基于定时播放队列（Scheduled Playback）实现精准延迟
-* **同步调节**：通过按键交互调节延迟量，实时生效
-* **可扩展性**：可接入 ASR（自动语音识别）+ MT（机器翻译）+ TTS（语音合成）
 
 ---
 
-## 📸 演示截图
-
-**1️⃣ 系统运行画面**
-![demo_screenshot](screenshots/run_demo.jpg)
-
-**2️⃣ 动态调节延迟**
-![delay_adjust](screenshots/delay_adjust.jpg)
-
-**3️⃣ 手机端视频推流界面**
-![phone_stream](screenshots/phone_stream_ui.jpg)
-
----
-
-## 🚀 快速开始
-
-### 1. 安装依赖
+## ⚙️ Installation | 安装
 
 ```bash
+git clone https://github.com/yourname/prosody-tts-vm.git
+cd prosody-tts-vm
 pip install -r requirements.txt
 ```
 
-### 2. 手机端配置
+Dependencies:
 
-* 安装 **IP Webcam**（安卓）或 **Iriun Webcam**（iOS/安卓）
-* 确保手机与电脑在同一局域网
-* 启动推流并记下视频流地址：
+* `torch` + CUDA (optional, for faster ASR)
+* `whisper`
+* `sounddevice`
+* `pyaudio`
+* `requests` (Azure TTS)
 
-  * HTTP/MJPEG: `http://<手机IP>:8080/video`
-  * RTSP/H.264: `rtsp://<手机IP>:<端口>/<路径>`
+---
 
-### 3. 启动延时眼镜端
+## 🎯 Usage | 使用方法
 
 ```bash
-python glasses_sim.py --video "http://<手机IP>:8080/video"
+python prosody_tts_vm.py \
+  --mode live \
+  --device-name "CABLE-A Output" \
+  --tts_device_name "Voicemeeter Input (VB-Audio Voicemeeter VAIO)" \
+  --whisper small.en \
+  --lead_ms 1200 \
+  --voice zh-CN-YunxiNeural \
+  --tts_rate_pct -15 \
+  --keep_wav --wav_dir ./wav_logs
 ```
 
-* `<手机IP>` 可在手机端推流应用界面查看
-* 程序启动后，可用 **↑/↓** 动态调节延迟（单位：100ms），按 `q` 退出
-
-### 4. 启动翻译耳机端
-
-```bash
-python earbud_sim.py --delay_ms 1200 --text "你好，这是一次同步演示。"
-```
-
-* `--delay_ms` 设定延迟时间（毫秒）
-* `--text` 为播放的翻译文本
+| 参数                  | 说明                    |
+| ------------------- | --------------------- |
+| `--device-name`     | 捕获系统音频输入设备            |
+| `--tts_device_name` | 输出翻译语音的设备             |
+| `--whisper`         | 选择 ASR 模型             |
+| `--lead_ms`         | 翻译缓冲时间，控制延迟与完整度       |
+| `--tts_rate_pct`    | 调节语速，如 -15 表示比正常慢 15% |
+| `--keep_wav`        | 是否保存合成语音日志            |
+| `--wav_dir`         | 保存目录                  |
 
 ---
 
-## 🖥 运行效果
+## 📊 Performance | 性能指标
 
-* 眼镜端启动后进入 **BUFFERING** 状态，等待视频缓冲
-* 耳机端发送延迟参数并播放翻译语音
-* 眼镜端切换至 **PLAY** 模式，延时显示嘴型画面，实现音视频同步
-* 按 `↑/↓` 动态调整延迟，观察同步效果变化
-* 按 `q` 退出
+| Model       | Avg Latency | Translation Completeness | GPU      |
+| ----------- | ----------- | ------------------------ | -------- |
+| `tiny.en`   | \~0.8s      | Medium                   | Optional |
+| `small.en`  | \~1.2s      | High                     | ✅        |
+| `medium.en` | \~2.5s      | Very High                | ✅        |
 
 ---
 
-## 📂 项目结构
+## 🌟 Features | 工程亮点
+
+* **Real-time + Robust** → Avoids missing sentences with **buffer + VAD**
+* **Prosody Mapping** → Keeps rhythm & speech style
+* **Scalable** → Replaceable ASR / MT / TTS backends
+* **Debuggable** → Logs original audio, ASR text, translations, and TTS output
+
+---
+
+## 📂 Project Structure | 项目结构
 
 ```
-DelaySync_Translator_Demo/
-│── earbud_sim.py           # 翻译耳机模拟端（延迟播放翻译音频）
-│── glasses_sim.py          # 延时眼镜模拟端（延迟显示视频画面）
-│── common.py               # 公共配置与工具函数
-│── requirements.txt        # Python 依赖清单
-│── README.md               # 项目说明文档（GitHub 主页展示）
-│
-├── /screenshots/           # 演示截图
-│   ├── demo_screenshot.png     # 系统运行画面
-│   ├── delay_adjust.png        # 动态调节延迟界面
-│   ├── phone_stream.png        # 手机推流界面
-│
-├── /docs/                  # 附加文档
-│   ├── technical_disclosure.pdf  # 技术交底书
-│   ├── workflow_diagram.png      # 系统流程图
-│   ├── architecture.png          # 系统架构图
-│
-├── /examples/              # 示例脚本
-│   ├── example_run.sh          # Linux/Mac 一键运行脚本
-│   ├── example_run.bat         # Windows 一键运行脚本
-│
-└── /data/                  # 测试数据
-    ├── sample_audio.wav        # 示例音频
-    ├── sample_video.mp4        # 示例视频
+prosody_tts_vm/
+├── prosody_tts_vm.py     # Main program
+├── requirements.txt      # Dependencies
+├── /wav_logs             # Audio logs
+├── /assets               # Logo, screenshots, GIFs
+└── README.md             # Documentation
 ```
 
 ---
 
-🛠 应用价值
+## 🔮 Roadmap | 后续扩展
 
-* 国际会议同声翻译眼镜
-* 跨国商务交流辅助
-* 智能旅游语音导览
-* 影视现场配音同步工具
+* Multi-language support (中 ↔ 英, 日 ↔ 中, etc.)
+* Real-time meeting summarization with LLM
+* Adaptive prosody control for speaker style simulation
+* Enhanced fault-tolerance & auto-reconnection
 
-架构可扩展至多语种翻译、AR字幕叠加、3D嘴型合成等高级功能，具有商业化潜力。
 
----
 
-## 🤝 合作与交流
-
-欢迎学术机构、硬件厂商、AR/VR开发团队合作，共同推进技术落地。
-
----
-
-**© 2025 DelaySync\_Translator\_Demo | Engineering Prototype**
