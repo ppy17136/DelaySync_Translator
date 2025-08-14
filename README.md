@@ -144,7 +144,6 @@ python prosody_tts_vm.py --model small.en --voice zh-CN-YunxiNeural
 ## 🤝 贡献 | Contribution
 
 欢迎提交 PR、Issue 或优化建议。
-请遵循 [CONTRIBUTING.md](CONTRIBUTING.md) 中的开发规范。
 
 ---
 
