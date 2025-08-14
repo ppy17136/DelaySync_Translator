@@ -57,12 +57,12 @@ This project is a **Delay Glasses & Real-Time Translation Headset Synchronizatio
 flowchart LR
   A[🎤 Mic / CABLE-A Input] --> B[🔎 VAD and Segmentation]
   B --> C[📝 ASR: Whisper small.en]
-  C --> D[📦 Buffer & Sentence Assembler]
-  D --> E[🌐 MT: EN → ZH]
+  C --> D[📦 Buffer and Sentence Assembler]
+  D --> E[🌐 MT: EN -> ZH]
   E --> F[🎶 Prosody Mapper (Rate + Pause)]
-  F --> G[🔊 TTS Engine (Edge-TTS / Azure)]
-  G --> H[🎧 Audio Out → Headset]
-  C --> I[🕶️ Subtitles Out → Delay Glasses]
+  F --> G[🔊 TTS Engine (Edge-TTS or Azure)]
+  G --> H[🎧 Audio Out -> Headset]
+  C --> I[🕶️ Subtitles Out -> Delay Glasses]
   H -. Sync .- I
 ```
 
