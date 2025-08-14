@@ -3,7 +3,7 @@
 *Delay Glasses & Real-Time Translation Headset Synchronization System*
 
 <p align="center">
-  <img src="docs/logo.png" alt="Project Logo" width="200"/>
+  <img src="assets/logo.png" alt="Project Logo" width="200"/>
 </p>
 
 <p align="center">
@@ -38,13 +38,13 @@ This project is a **Delay Glasses & Real-Time Translation Headset Synchronizatio
 ### 界面截图 | Screenshot
 
 <p align="center">
-  <img src="docs/screenshot.png" alt="System Screenshot" width="700"/>
+  <img src="assets/voicemeeter.png" alt="System Screenshot" width="700"/>
 </p>
 
 ### 动态演示 | Demo GIF
 
 <p align="center">
-  <img src="docs/demo.gif" alt="System Demo" width="700"/>
+  <img src="assets/demo.gif" alt="System Demo" width="700"/>
 </p>
 
 *左：眼镜字幕延时显示；右：耳机同步语音翻译*
