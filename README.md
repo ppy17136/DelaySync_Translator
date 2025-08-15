@@ -53,19 +53,6 @@ This project is a **Delay Glasses & Real-Time Translation Headset Synchronizatio
 ## 🏗️ 系统架构 | Architecture
 
 ```mermaid
-flowchart LR
-  A[🎤 Mic CABLE-A Input] --> B[🔎 VAD and Segmentation]
-  B --> C[📝 ASR: Whisper small.en]
-  C --> D[📦 Buffer and Sentence Assembler]
-  D --> E[🌐 MT: EN -> ZH]
-  E --> F[🎶 Prosody Mapper_Rate + Pause]
-  F --> G[🔊 TTS Engine_Edge-TTS or Azure]
-  G --> H[🎧 Audio Out -> Headset]
-  C --> I[🕶️ Subtitles Out -> Delay Glasses]
-  H -. Sync .- I
-```
-
-```mermaid
 flowchart TB
   subgraph Input
     A[🎤 Mic CABLE-A Input]
@@ -89,9 +76,6 @@ flowchart TB
   C --> I
   H -. Sync .- I
 ```
-
-
-
 
 |  翻译耳机模拟（Earbud Sim）   | <---------UDP/JSON---------->|   延时眼镜模拟（Glasses Sim）    |
 |-------------        |-------------|-------------|
