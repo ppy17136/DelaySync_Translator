@@ -79,11 +79,11 @@ flowchart LR
    麦克风采音                                  手机摄像头推流
 ```
 
-| 翻译耳机模拟       |UDP/JSON     |Translation Completeness |GPU      |
-| Earbud Sim           |-------------|------                   | ------- | 
-| 翻译延迟计算       | \~0.8s      | Medium                   | Optional |
-| TTS播放             | \~1.2s      | High                     | ✅        |
-| 延迟参数发送       | \~2.5s      | Very High                | ✅        |
+| 翻译耳机模拟       |UDP/JSON     |
+| Earbud Sim           |-------------|
+| 翻译延迟计算       | \~0.8s      |
+| TTS播放             | \~1.2s      |
+| 延迟参数发送       | \~2.5s      |
 
 |                |       UDP/JSON       |                |
 |  翻译耳机模拟   | <------------------->|   延时眼镜模拟    |
