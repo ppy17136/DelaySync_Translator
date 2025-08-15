@@ -77,6 +77,34 @@ flowchart TB
   H -. Sync .- I
 ```
 
+
+```mermaid
+flowchart TB
+
+    A[🎤 Mic CABLE-A Input]
+
+  
+
+    B[🔎 VAD and Segmentation]
+    C[📝 ASR: Whisper small.en]
+    D[📦 Buffer & Sentence Assembler]
+    E[🌐 MT: EN -> ZH]
+    F[🎶 Prosody Mapper_Rate + Pause]
+
+  
+
+    G[🔊 TTS Engine_Edge-TTS or Azure]
+    H[🎧 Audio Out -> Headset]
+    I[🕶️ Subtitles Out -> Delay Glasses]
+
+
+  A --> B --> C --> D --> E --> F --> G --> H
+  C --> I
+  H -. Sync .- I
+```
+
+
+
 |  翻译耳机模拟（Earbud Sim）   | <---------UDP/JSON---------->|   延时眼镜模拟（Glasses Sim）    |
 |-------------        |-------------|-------------|
 | - 翻译延迟计算  |                      | - 视频缓冲管理    |
