@@ -75,7 +75,6 @@ def find_device_index_by_name(name_substr: str, want_output=False) -> Optional[i
     pa.terminate()
     return target
 
-
 # ================= 重采样（无 resampy 依赖） =================
 def resample_to_48k(y: np.ndarray, sr: int):
     target_sr = 48000
@@ -171,7 +170,6 @@ class LineInVAD:
         finally:
             self.pa.terminate()
 
-
 def wav_segments_from_file(wav_path: str, rate=16000, seg_len=4.0) -> List[np.ndarray]:
     y, sr = librosa.load(wav_path, sr=rate, mono=True)
     hop = int(seg_len * sr)
@@ -181,7 +179,6 @@ def wav_segments_from_file(wav_path: str, rate=16000, seg_len=4.0) -> List[np.nd
         if len(chunk) < int(0.8*hop): break
         segs.append(chunk)
     return segs
-
 
 # ================= ASR（Whisper 英语） =================
 class ASRWhisper:
@@ -299,7 +296,6 @@ def is_trivial(txt: str) -> bool:
     letters = sum(ch.isalpha() for ch in txt)
     return letters < 3
 
-
 # ================= TTS（文本 → MP3 → WAV@48kHz） =================
 async def edge_tts_to_wav(text: str, out_wav: str, voice: str,
                           rate: Optional[str]=None, pitch: Optional[str]=None) -> float:
@@ -336,7 +332,6 @@ async def edge_tts_to_wav(text: str, out_wav: str, voice: str,
     try: os.remove(mp3_path)
     except Exception: pass
     return float(nframes / sr2)
-
 
 # —— 工具：WAV 有效性校验 + 轻量能量检查
 def assert_valid_wav(path: str) -> Tuple[int, int, int]:
@@ -429,8 +424,6 @@ def play_wav_to_device(wav_path: str, out_device_index: Optional[int] = None):
 
     print("[PLAY] 播放完成（sounddevice）")
 
-
-
 # ================= 路径工具 =================
 def make_out_path(wav_dir: Optional[str] = None) -> str:
     base = f"tts_{datetime.datetime.now():%Y%m%d_%H%M%S_%f}.wav"
@@ -439,7 +432,6 @@ def make_out_path(wav_dir: Optional[str] = None) -> str:
         return os.path.join(wav_dir, base)
     tmp_dir = tempfile.gettempdir()
     return os.path.join(tmp_dir, base)
-
 
 # ================= 主流程 =================
 def main():
