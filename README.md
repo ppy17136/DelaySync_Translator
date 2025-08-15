@@ -105,7 +105,10 @@ flowchart LR
        |                                          |
    麦克风采音                                  手机摄像头推流   
    
-   
+  
+
+
+  
 
 | Model       | Avg Latency | Translation Completeness | GPU      |
 | ----------- | ----------- | ------------------------ | -------- |
