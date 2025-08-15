@@ -65,7 +65,7 @@ flowchart LR
   H -. Sync .- I
 ```
 
-```text
+```
 +----------------+       UDP/JSON       +------------------+
 |  翻译耳机模拟   | <------------------->|   延时眼镜模拟    |
 | Earbud Sim     |                      | Glasses Sim      |
@@ -116,6 +116,7 @@ flowchart LR
 # 克隆项目
 git clone https://github.com/yourname/DelaySync_Translator.git
 cd DelaySync_Translator
+```
 
 # 安装依赖
 pip install -r requirements.txt
@@ -147,7 +148,7 @@ python prosody_tts_vm.py --model small.en --voice zh-CN-YunxiNeural
 * `--delay_ms` 设定延迟时间（毫秒）
 * `--text` 为播放的翻译文本
 
-```
+
 
 运行后：
 
