@@ -80,7 +80,7 @@ flowchart LR
 ```
 
 | 翻译耳机模拟       | UDP/JSON | Translation Completeness | GPU      |
-| Earbud Sim | <-------------------> | ------------------------ | -------- |
+| Earbud Sim | ------------------- | ------------------------ | -------- |
 | 翻译延迟计算   | \~0.8s      | Medium                   | Optional |
 | TTS播放  | \~1.2s      | High                     | ✅        |
 | 延迟参数发送 | \~2.5s      | Very High                | ✅        |
