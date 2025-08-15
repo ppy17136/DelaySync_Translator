@@ -81,7 +81,7 @@ flowchart LR
 
 
 
-|----------------|       UDP/JSON       |------------------|
+|                |       UDP/JSON       |                |
 |  翻译耳机模拟   | <------------------->|   延时眼镜模拟    |
 | Earbud Sim     |                      | Glasses Sim      |
 |                |                      |                  |
@@ -93,7 +93,13 @@ flowchart LR
        |                                          |
    麦克风采音                                  手机摄像头推流
 
+| Model       | Avg Latency | Translation Completeness | GPU      |
+| ----------- | ----------- | ------------------------ | -------- |
+| `tiny.en`   | \~0.8s      | Medium                   | Optional |
+| `small.en`  | \~1.2s      | High                     | ✅        |
+| `medium.en` | \~2.5s      | Very High                | ✅        |
 
+---
 
 ---
 
