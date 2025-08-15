@@ -118,7 +118,7 @@ flowchart LR
 | ----------- | ----------- | ------------------------ | -------- |
 | `tiny.en`   | \~0.8s      | Medium                   | Optional |
 | `small.en`  | \~1.2s      | High                     | ✅        |
-| `medium.en` | \~2.5s      | Very High                | ✅        |
+| `medium.en`  | \~2.5s      | Very High                | ✅        |
 
 ---
 
