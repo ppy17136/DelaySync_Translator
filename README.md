@@ -10,6 +10,8 @@
   <b>⏳ 同声传译不再“抢跑”，字幕与语音延时精准同步</b>  
 </p>
 
+<p align="center"> <b>⚡ Low-latency | 🎙 Real-time Speech Recognition | 🌍 English→Chinese Translation | 🔊 Natural TTS with Prosody</b> </p>
+
 ---
 
 ## 📖 项目简介 | Project Introduction
@@ -124,10 +126,10 @@ git clone https://github.com/yourname/DelaySync_Translator.git
 cd DelaySync_Translator
 ```
 
-# 安装依赖
+### 安装依赖
 pip install -r requirements.txt
 
-# 手机端配置
+### 手机端配置
 
 * 安装 **IP Webcam**（安卓）或 **Iriun Webcam**（iOS/安卓）
 * 确保手机与电脑在同一局域网
@@ -135,8 +137,14 @@ pip install -r requirements.txt
 
   * HTTP/MJPEG: `http://<手机IP>:8080/video`
   * RTSP/H.264: `rtsp://<手机IP>:<端口>/<路径>`
+  
+### 配置虚拟音频线
 
-# 启动延时眼镜端
+* 输入：**CABLE-A Output**
+* 输出：**Voicemeeter Input (VB-Audio Voicemeeter VAIO)**
+* 在系统声音设置里确认。  
+
+### 启动延时眼镜端
 
 ```bash
 python glasses_sim.py --video "http://<手机IP>:8080/video"
@@ -145,7 +153,7 @@ python glasses_sim.py --video "http://<手机IP>:8080/video"
 * `<手机IP>` 可在手机端推流应用界面查看
 * 程序启动后，可用 **↑/↓** 动态调节延迟（单位：100ms），按 `q` 退出
 
-# 启动翻译耳机端
+### 启动翻译耳机端
 
 ```bash
 python prosody_tts_vm.py --model small.en --voice zh-CN-YunxiNeural
@@ -161,15 +169,17 @@ python prosody_tts_vm.py --model small.en --voice zh-CN-YunxiNeural
 * 🎧 耳机会播放翻译语音（延迟匹配字幕）
 * 🕶️ 智能眼镜显示延时字幕
 
-| 参数                  | 说明                    |
-| ------------------- | --------------------- |
-| `--device-name`     | 捕获系统音频输入设备            |
-| `--tts_device_name` | 输出翻译语音的设备             |
-| `--whisper`         | 选择 ASR 模型             |
-| `--lead_ms`         | 翻译缓冲时间，控制延迟与完整度       |
-| `--tts_rate_pct`    | 调节语速，如 -15 表示比正常慢 15% |
-| `--keep_wav`        | 是否保存合成语音日志            |
-| `--wav_dir`         | 保存目录                  |
+### 参数说明
+
+| 参数                  | 说明                                              |
+| ------------------- | ----------------------------------------------- |
+| `--device-name`     | 捕捉系统音频的输入设备 (如 "CABLE-A Output")                |
+| `--tts_device_name` | 播放翻译结果的输出设备 (如 "Voicemeeter Input")             |
+| `--whisper`         | 使用的 ASR 模型 (`tiny.en`, `small.en`, `medium.en`) |
+| `--lead_ms`         | 预测缓冲时长 (ms)，越大越自然，越小越低延迟                        |
+| `--tts_rate_pct`    | 语速调节，如 -15 表示比正常语速慢 15%                         |
+| `--keep_wav`        | 是否保存生成的 WAV 文件                                  |
+| `--wav_dir`         | 保存音频日志的目录                                       |
 
 ---
 
