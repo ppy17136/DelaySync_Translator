@@ -71,8 +71,7 @@ flowchart LR
 | - TTS播放      |                      | - 延迟显示控制    |
 | - 延迟参数发送  |                      | - 环境自适应调节  |
 |<div align="center">↑</div>|                     |<div align="center">↑</div>|
-|<div align="center">\|</div>|                     |<div align="center">\|</div>|
- |<div align="center">麦克风采音</div>|                   |<div align="center">手机摄像头推流</div>|
+|<div align="center">麦克风采音</div>|                   |<div align="center">手机摄像头推流</div>|
 
 ---
 
